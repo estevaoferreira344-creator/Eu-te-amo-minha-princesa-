@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estevão & Eduarda ❤️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        vinho: '#7B0A26', // Vermelho vinho principal
+                        vinhoClaro: '#9A1234',
+                        brancoFundo: '#FFFFFF',
+                        cremeSuave: '#FDFBFC',
+                    },
+                    fontFamily: {
+                        script: ['Great Vibes', 'cursive'],
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .bg-vinho { background-color: #7B0A26; }
+            .text-vinho { color: #7B0A26; }
+            .borda-vinho { border: 2px solid #7B0A26; }
+            .sombra-vinho { box-shadow: 0 0 15px rgba(123, 10, 38, 0.25); }
+            .fundo-textura {
+                background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%237B0A26" fill-opacity="0.04"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+            }
+        }
+
+        /* Corações caindo */
+        .coracao {
+            position: fixed;
+            top: -10px;
+            font-size: 24px;
+            color: #7B0A26;
+            animation: cair linear forwards;
+            z-index: 100;
+            pointer-events: none;
+        }
+        @keyframes cair {
+            to {
+                transform: translateY(105vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Zoom nas fotos */
+        .foto-galeria {
+            transition: transform 0.4s ease;
+            cursor: pointer;
+        }
+        .foto-galeria:hover {
+            transform: scale(1.03);
+        }
+        .foto-ampliada {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            display: none;
+        }
+        .foto-ampliada img {
+            max-width: 90%;
+            max-height: 90%;
+            border: 3px solid #7B0A26;
+            border-radius: 8px;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="bg-cremeSuave text-gray-800 font-sans fundo-textura">
+
+    <!-- Corações caindo -->
+    <div id="coracoes"></div>
+
+    <!-- Modal ampliar foto -->
+    <div id="modalFoto" class="foto-ampliada" onclick="fecharModal()">
+        <img id="imagemAmpliada" src="" alt="Foto ampliada">
+    </div>
+
+    <!-- Cabeçalho -->
+    <header class="bg-vinho text-white py-10 px-4 text-center relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_#FFFFFF_0%,transparent_70%)]"></div>
+        <h1 class="font-script text-5xl md:text-6xl mb-3 text-white">Estevão & Eduarda</h1>
+        <p class="text-lg md:text-xl text-white/90">Para sempre juntos ❤️</p>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-10">
+
+        <!-- Contador com data 20/06/2026 -->
+        <section class="mb-16 text-center">
+            <h2 class="font-script text-4xl text-vinho mb-6">Nosso Tempo Juntos</h2>
+            <div class="bg-brancoFundo p-6 rounded-lg borda-vinho sombra-vinho inline-block">
+                <div id="contador" class="flex flex-wrap justify-center gap-4 text-center">
+                    <div class="w-20">
+                        <div class="text-3xl font-bold text-vinho" id="anos">0</div>
+                        <div class="text-sm text-gray-600">Anos</div>
+                    </div>
+                    <div class="w-20">
+                        <div class="text-3xl font-bold text-vinho" id="meses">0</div>
+                        <div class="text-sm text-gray-600">Meses</div>
+                    </div>
+                    <div class="w-20">
+                        <div class="text-3xl font-bold text-vinho" id="dias">0</div>
+                        <div class="text-sm text-gray-600">Dias</div>
+                    </div>
+                    <div class="w-20">
+                        <div class="text-3xl font-bold text-vinho" id="horas">0</div>
+                        <div class="text-sm text-gray-600">Horas</div>
+                    </div>
+                    <div class="w-20">
+                        <div class="text-3xl font-bold text-vinho" id="minutos">0</div>
+                        <div class="text-sm text-gray-600">Minutos</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Carta romântica -->
+        <section class="mb-16">
+            <h2 class="font-script text-4xl text-center text-vinho mb-6">Minha Carta para Você</h2>
+            <div class="bg-brancoFundo p-8 rounded-lg borda-vinho sombra-vinho relative">
+                <div class="absolute -top-4 -left-4 text-vinho text-4xl opacity-20">❝</div>
+                <p class="text-gray-700 leading-relaxed text-center md:text-justify">
+                    Minha querida Eduarda,<br><br>
+                    Desde que você entrou na minha vida, tudo ganhou mais cor, mais brilho e mais sentido. Cada dia ao seu lado é um presente que agradeço a Deus. Você é minha paz, minha alegria e o meu maior sonho se tornando realidade.<br><br>
+                    Estou contando os segundos para fazer de você a minha esposa, para compartilhar todos os dias, as alegrias, os desafios e todo o amor que sinto por você. Obrigado por ser quem você é, por me amar e por estar sempre comigo. Você é e sempre será o amor da minha vida.<br><br>
+                    Com todo o meu amor,<br>
+                    <span class="font-script text-2xl text-vinho">Estevão</span> ❤️
+                </p>
+                <div class="absolute -bottom-4 -right-4 text-vinho text-4xl opacity-20">❞</div>
+            </div>
+        </section>
+
+        <!-- Galeria com suas fotos -->
+        <section class="mb-16">
+            <h2 class="font-script text-4xl text-center text-vinho mb-8">Nossos Momentos</h2>
+            <div id="galeria" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="aspect-square overflow-hidden rounded-lg borda-vinho sombra-vinho">
+                    <img src="foto1.jpg" alt="Nosso momento" class="foto-galeria w-full h-full object-cover" onclick="ampliarFoto(this.src)">
+                </div>
+                <div class="aspect-square overflow-hidden rounded-lg borda-vinho sombra-vinho">
+                    <img src="foto2.jpg" alt="Nosso momento" class="foto-galeria w-full h-full object-cover" onclick="ampliarFoto(this.src)">
+                </div>
+                <div class="aspect-square overflow-hidden rounded-lg borda-vinho sombra-vinho">
+                    <img src="foto3.jpg" alt="Nosso momento" class="foto-galeria w-full h-full object-cover" onclick="ampliarFoto(this.src)">
+                </div>
+                <div class="aspect-square overflow-hidden rounded-lg borda-vinho sombra-vinho">
+                    <img src="foto4.jpg" alt="Nosso momento" class="foto-galeria w-full h-full object-cover" onclick="ampliarFoto(this.src)">
+                </div>
+                <div class="aspect-square overflow-hidden rounded-lg borda-vinho sombra-vinho">
+                    <img src="foto5.jpg" alt="Nosso momento" class="foto-galeria w-full h-full object-cover" onclick="ampliarFoto(this.src)">
+                </div>
+                <div class="aspect-square overflow-hidden rounded-lg borda-vinho sombra-vinho">
+                    <img src="foto6.jpg" alt="Nosso momento" class="foto-galeria w-full h-full object-cover" onclick="ampliarFoto(this.src)">
+                </div>
+            </div>
+        </section>
+
+        <!-- Músicas Luan Santana -->
+        <section class="mb-10">
+            <h2 class="font-script text-4xl text-center text-vinho mb-6">Nossas Canções</h2>
+            <div class="grid gap-4 max-w-xl mx-auto">
+                <a href="https://www.youtube.com/watch?v=G9sR0tJ7Xg0" target="_blank" class="flex items-center justify-between bg-brancoFundo p-4 rounded-lg borda-vinho sombra-vinho hover:bg-vinho/5 transition">
+                    <span>🎵 Quando a Chuva Passar</span>
+                    <i class="fa fa-youtube-play text-red-600 text-xl"></i>
+                </a>
+                <a href="https://www.youtube.com/watch?v=o0Wd2Q8cGdA" target="_blank" class="flex items-center justify-between bg-brancoFundo p-4 rounded-lg borda-vinho sombra-vinho hover:bg-vinho/5 transition">
+                    <span>🎵 Sogra</span>
+                    <i class="fa fa-youtube-play text-red-600 text-xl"></i>
+                </a>
+                <a href="https://www.youtube.com/watch?v=eQZb8J7qJ7c" target="_blank" class="flex items-center justify-between bg-brancoFundo p-4 rounded-lg borda-vinho sombra-vinho hover:bg-vinho/5 transition">
+                    <span>🎵 Você é Linda</span>
+                    <i class="fa fa-youtube-play text-red-600 text-xl"></i>
+                </a>
+                <a href="https://www.youtube.com/watch?v=7zJZb0g8X2o" target="_blank" class="flex items-center justify-between bg-brancoFundo p-4 rounded-lg borda-vinho sombra-vinho hover:bg-vinho/5 transition">
+                    <span>🎵 Amar Não é Pecado</span>
+                    <i class="fa fa-youtube-play text-red-600 text-xl"></i>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-vinho text-center py-6 text-white">
+        <p>Com todo o amor do mundo ❤️ Estevão & Eduarda</p>
+    </footer>
+
+    <script>
+        // 📅 DATA DE INÍCIO: 20/06/2026
+        const dataInicio = new Date("2026-06-20");
+
+        // Contador de tempo
+        function atualizarContador() {
+            const agora = new Date();
+            let anos = agora.getFullYear() - dataInicio.getFullYear();
+            let meses = agora.getMonth() - dataInicio.getMonth();
+            let dias = agora.getDate() - dataInicio.getDate();
+            let horas = agora.getHours() - dataInicio.getHours();
+            let minutos = agora.getMinutes() - dataInicio.getMinutes();
+
+            if (minutos < 0) { minutos += 60; horas--; }
+            if (horas < 0) { horas += 24; dias--; }
+            if (dias < 0) {
+                const ultimoMes = new Date(agora.getFullYear(), agora.getMonth(), 0);
+                dias += ultimoMes.getDate();
+                meses--;
+            }
+            if (meses < 0) { meses += 12; anos--; }
+
+            document.getElementById("anos").textContent = anos;
+            document.getElementById("meses").textContent = meses;
+            document.getElementById("dias").textContent = dias;
+            document.getElementById("horas").textContent = horas;
+            document.getElementById("minutos").textContent = minutos;
+        }
+        atualizarContador();
+        setInterval(atualizarContador, 60000);
+
+        // Corações caindo
+        function criarCoracao() {
+            const coracao = document.createElement("div");
+            coracao.className = "coracao";
+            coracao.innerHTML = "❤️";
+            coracao.style.left = Math.random() * 100 + "vw";
+            coracao.style.animationDuration = Math.random() * 3 + 3 + "s";
+            coracao.style.fontSize = Math.random() * 16 + 16 + "px";
+            document.getElementById("coracoes").appendChild(coracao);
+            setTimeout(() => coracao.remove(), 6000);
+        }
+        setInterval(criarCoracao, 300);
+
+        // Zoom nas fotos
+        function ampliarFoto(src) {
+            document.getElementById("imagemAmpliada").src = src;
+            document.getElementById("modalFoto").style.display = "flex";
+            document.body.style.overflow = "hidden";
+        }
+        function fecharModal() {
+            document.getElementById("modalFoto").style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+    </script>
+</body>
+</html>
+
